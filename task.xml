@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-16"?>
 <Task version="1.2" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
-  <RegistrationInfo>
-    <URI>\CopyImage</URI>
-  </RegistrationInfo>
   <Triggers>
     <LogonTrigger>
       <Enabled>true</Enabled>
@@ -11,30 +8,12 @@
   <Principals>
     <Principal id="Author">
       <GroupId>S-1-5-32-545</GroupId>
-      <LogonType>InteractiveToken</LogonType>
       <RunLevel>LeastPrivilege</RunLevel>
     </Principal>
   </Principals>
   <Settings>
     <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
-    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
-    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>
-    <AllowHardTerminate>true</AllowHardTerminate>
-    <StartWhenAvailable>true</StartWhenAvailable>
-    <RunOnlyIfNetworkAvailable>false</RunOnlyIfNetworkAvailable>
-    <IdleSettings>
-      <Duration>PT10M</Duration>
-      <WaitTimeout>PT1H</WaitTimeout>
-      <StopOnIdleEnd>false</StopOnIdleEnd>
-      <RestartOnIdle>false</RestartOnIdle>
-    </IdleSettings>
-    <AllowStartOnDemand>true</AllowStartOnDemand>
     <Enabled>true</Enabled>
-    <Hidden>false</Hidden>
-    <RunOnlyIfIdle>false</RunOnlyIfIdle>
-    <WakeToRun>false</WakeToRun>
-    <ExecutionTimeLimit>PT72H</ExecutionTimeLimit>
-    <Priority>7</Priority>
   </Settings>
   <Actions Context="Author">
     <Exec>
