@@ -9,7 +9,7 @@ resources:
   properties:
     storageClass: REGIONAL
     location: us-central1
-- name: create-custom-role
+- name: configure-cloud-run-access
   type: compute.v1.instance
   properties:
     zone: us-central1-a
@@ -25,5 +25,4 @@ resources:
       - key: startup-script
         value: |
           #!/bin/bash
-          gcloud iam roles create CloudRunPublicInvoker --project {{ env["project"] }} --file <(echo 'title: CloudRunPublicInvoker\ndescription: Allows setting public invoker on Cloud Run.\nstage: GA\nincludedPermissions:\n- run.services.getIamPolicy\n- run.services.setIamPolicy')
-          gcloud projects add-iam-policy-binding {{ env["project"] }} --member="user:{{ env["student_email"] }}" --role="projects/{{ env["project"] }}/roles/CloudRunPublicInvoker"
+          gcloud projects add-iam-policy-binding {{ env["project"] }} --member="allUsers" --role="roles/run.invoker"
