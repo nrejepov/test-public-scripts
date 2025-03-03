@@ -1,0 +1,29 @@
+resources:
+- name: signer-serviceaccount
+  type: iam.v1.serviceAccount
+  properties:
+    accountId: storage-signer
+    displayName: storage-signer
+- name: ca-lab-bucket-{{ env["current_time"] }}
+  type: storage.v1.bucket
+  properties:
+    storageClass: REGIONAL
+    location: us-central1
+- name: create-custom-role
+  type: compute.v1.instance
+  properties:
+    zone: us-central1-a
+    machineType: zones/us-central1-a/machineTypes/n1-standard-1
+    disks:
+    - initializeParams:
+        sourceImage: projects/debian-cloud/global/images/family/debian-11
+      boot: true
+    networkInterfaces:
+    - network: global/networks/default
+    metadata:
+      items:
+      - key: startup-script
+        value: |
+          #!/bin/bash
+          gcloud iam roles create CloudRunPublicInvoker --project {{ env["project"] }} --file <(echo 'title: CloudRunPublicInvoker\ndescription: Allows setting public invoker on Cloud Run.\nstage: GA\nincludedPermissions:\n- run.services.getIamPolicy\n- run.services.setIamPolicy')
+          gcloud projects add-iam-policy-binding {{ env["project"] }} --member="user:{{ env["student_email"] }}" --role="projects/{{ env["project"] }}/roles/CloudRunPublicInvoker"
